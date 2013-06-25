@@ -4,7 +4,12 @@ function exitIfRunning {
   if ps ax | grep -v grep | grep Harvest > /dev/null
   then
     echo "You must quit Harvest before continuing."
-    exit 1
+    read -p "Do you wish to quit now? [Y/n] " yn
+    case $yn in
+        [Yy]* ) osascript -e 'tell application "Harvest" to quit'; exit;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
   fi
 }
 
